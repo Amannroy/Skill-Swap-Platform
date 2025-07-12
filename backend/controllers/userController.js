@@ -1,13 +1,33 @@
 import { userModel } from "../models/User.js";
+import bcrypt from "bcryptjs";
 
 // Register a new user(Takes user info from the frontend. Saves it to MongoDB.)
 export const registerUser = async (req, res) => {
   try {
-    const user = new userModel(req.body);
-    await user.save();
-    res.status(201).json({ success: true, user });
+    const { name, email, password, ...rest } = req.body;
+
+    // Check if user already exists
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+
+    // 🔒 Hash the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create new user with hashed password
+    const newUser = new userModel({
+      name,
+      email,
+      password: hashedPassword,
+      ...rest,
+    });
+
+    await newUser.save();
+    res.status(201).json({ message: "User registered successfully", user: newUser });
   } catch (error) {
-    res.status(400).json({ success: false, message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
