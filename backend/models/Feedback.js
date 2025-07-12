@@ -3,17 +3,17 @@ import mongoose from "mongoose";
 const feedbackSchema = new mongoose.Schema({
   swap: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Swap',
+    ref: 'swaps',
     required: true
   },
   fromUser: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'users',
     required: true
   },
   toUser: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'users',
     required: true
   },
   rating: {

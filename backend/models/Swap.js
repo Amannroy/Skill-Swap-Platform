@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 const swapSchema = new mongoose.Schema({
   fromUser: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'users',
     required: true
   },
   toUser: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'users',
     required: true
   },
   status: {
