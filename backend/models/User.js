@@ -5,6 +5,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true, // each email must be unique
+  },
+  password: {
+    type: String,
+    required: true,
+  },
   location: String,
   photoUrl: String,
   isPublic: {

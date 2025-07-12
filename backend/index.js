@@ -6,6 +6,8 @@ import http from "http"; // ✅ Needed for Socket.IO
 import userRoutes from './routes/userRoutes.js'; 
 import swapRoutes from './routes/swapRoutes.js'; 
 import { Server } from "socket.io";
+import { verifyToken } from "./middleware/verifyToken.js";
+import authRoutes from './routes/authRoutes.js';
 
 dotenv.config();
 
@@ -50,6 +52,7 @@ mongoose
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // 📦 API Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/swaps', swapRoutes);
 
