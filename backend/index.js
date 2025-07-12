@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import userRoutes from './routes/userRoutes.js'; 
 
 dotenv.config();
 
@@ -16,7 +17,9 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Routes
-app.get("/", (req, res) => res.send("API is working"));
+//app.get("/", (req, res) => res.send("API is working"));
+
+app.use('/api/users', userRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;
